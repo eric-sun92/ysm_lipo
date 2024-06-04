@@ -4,7 +4,7 @@ import "./Heatmap.css"
 import AverageData from "./average.json"
 import SD from "./SD.json"
 import Select from 'react-select';
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 
 const Heatmap = () => {
   // console.log(SD)
@@ -279,19 +279,19 @@ const Heatmap = () => {
     };
   }, []);
 
-  const downloadImage = async () => {
-    const dataVizDiv = document.getElementById('my_dataviz');
-    const canvas = await html2canvas(dataVizDiv);
-    const image = canvas.toDataURL('image/png', 1.0);
+  // const downloadImage = async () => {
+  //   const dataVizDiv = document.getElementById('my_dataviz');
+  //   const canvas = await html2canvas(dataVizDiv);
+  //   const image = canvas.toDataURL('image/png', 1.0);
   
-    // Create a link to trigger the download
-    const link = document.createElement('a');
-    link.href = image;
-    link.download = `${selectedRange}-Lipofuscin-Load.png`; // Name of the file to be downloaded
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  //   // Create a link to trigger the download
+  //   const link = document.createElement('a');
+  //   link.href = image;
+  //   link.download = `${selectedRange}-Lipofuscin-Load.png`; // Name of the file to be downloaded
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   return (
     <>
@@ -336,7 +336,7 @@ const Heatmap = () => {
             style={{ width: '100%' }}
           />
 
-        <p style={{marginTop: "50px", cursor: "pointer", textDecoration: "underline"}} onClick={downloadImage}>Download Heatmap Image</p>
+        {/* <p style={{marginTop: "50px", cursor: "pointer", textDecoration: "underline"}} onClick={downloadImage}>Download Heatmap Image</p> */}
 
         
       </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import "./Heatmap.css"
 import AverageData from "./average.json"
 import Select from 'react-select';
-import html2canvas from 'html2canvas';
+// import html2canvas from 'html2canvas';
 
 const Coronal = () => {
   const [isFixed, setIsFixed] = useState(false);
@@ -93,19 +93,19 @@ const Coronal = () => {
     };
   }, []);
 
-  const downloadImage = async () => {
-    const dataVizDiv = document.getElementById('my_dataviz');
-    const canvas = await html2canvas(dataVizDiv);
-    const image = canvas.toDataURL('image/png', 1.0);
+  // const downloadImage = async () => {
+  //   const dataVizDiv = document.getElementById('my_dataviz');
+  //   // const canvas = await html2canvas(dataVizDiv);
+  //   // const image = canvas.toDataURL('image/png', 1.0);
   
-    // Create a link to trigger the download
-    const link = document.createElement('a');
-    link.href = image;
-    link.download = `${selectedRange}-Lipofuscin-Load.png`; // Name of the file to be downloaded
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  //   // Create a link to trigger the download
+  //   const link = document.createElement('a');
+  //   link.href = image;
+  //   link.download = `${selectedRange}-Lipofuscin-Load.png`; // Name of the file to be downloaded
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // };
 
   const atlasLinks = {
     "25 - OLF/CTX": "http://atlas.brain-map.org/atlas?atlas=1&plate=100960440#atlas=1&plate=100960424&resolution=13.96&x=5640&y=3983.9998372395835&zoom=-3&structure=342",
@@ -165,7 +165,7 @@ const Coronal = () => {
             Click here to view the atlas
         </a>
 
-        <p style={{marginTop: "50px", cursor: "pointer", textDecoration: "underline"}} onClick={downloadImage}>Download Heatmap Image</p>
+        {/* <p style={{marginTop: "50px", cursor: "pointer", textDecoration: "underline"}} onClick={downloadImage}>Download Heatmap Image</p> */}
 
         
       </div>
