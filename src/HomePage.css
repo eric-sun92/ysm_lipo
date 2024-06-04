@@ -1,0 +1,359 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+header {
+  padding: 20px 0;
+  text-align: center;
+  background-image: url('/banner.png');
+  background-size: cover; /* Ensures the image covers the entire header */
+  background-position: center; /* Centers the image */
+  height: 300px; /* Adjust the height as needed */
+  display: flex; /* Use flexbox to center the content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  color: white; /* Text color for better readability */
+}
+
+header h1 {
+    font-family: "ITC";
+    margin: 2rem;
+    font-size: 2.5em;
+}
+
+header h2 {
+  margin-top: 10px;
+  font-size: 1.5em;
+  margin-bottom: -5px;
+}
+
+header ul.authors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  font-size: 0.9rem;
+}
+
+header ul.authors li {
+  margin: 5px 15px;
+  font-size: 1em;
+}
+
+header ul.affiliations {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+  text-align: left;
+}
+
+header ul.affiliations li {
+  margin: 5px 2rem;
+  font-size: 0.8rem;
+}
+.text-wrapper {
+    margin: 2rem 5rem;
+}
+
+main {
+  padding: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+main section p {
+  line-height: 1.8;
+  margin: 20px 0;
+  text-align: justify;
+  font-size: 1.1em;
+}
+
+main section p:first-child {
+  margin-top: 0;
+}
+
+sup {
+  font-size: 0.8em;
+}
+
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2em;
+  }
+
+  header h2 {
+    font-size: 1.2em;
+  }
+
+  header ul.authors {
+    flex-direction: column;
+  }
+
+  header ul.authors li {
+    margin: 10px 0;
+  }
+}
+
+@font-face {
+  font-family: 'ITC';
+  src: local('ITC'), url('/ITCAvantGardeStd-XLt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'Yale';
+    src: url('../assets/fonts/YaleDisplay.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.main-header {
+    padding: 2rem 5rem 0rem 5rem;
+}
+
+.main-header .title {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.main-header .description {
+  font-size: 1.5rem;
+  justify-content: center;
+  width: 50vw;
+  padding-bottom: 5rem;
+  border-bottom: 1px solid gray;
+}
+.main-header .left-description {
+  font-size: 1.5rem;
+  right: 0;
+  width: 50vw;
+  border-bottom: 1px solid gray;
+  margin-left: 40vw;
+}
+
+
+.main-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+}
+
+.main-picture {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 40%;
+  padding: 2rem;
+  margin-top: -2rem;
+  margin-left: -5rem;
+}
+.ii .main-picture {
+    margin: 0rem 8rem 0 0rem;
+    width: 25rem;
+    height: 20rem;
+    
+}
+
+.main-picture .supplychain-picture,
+.main-picture .dueDiligence-picture {
+  width: 35rem;
+  height: 25rem;
+  object-fit: cover;
+}
+
+@media (max-width: 1250px) {
+  .main-picture {
+    display: none;
+  }
+}
+
+.main-body .text {
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    font-style: "Yale";
+    min-width: 30rem;
+    max-height: 40rem;
+    padding: 4rem;
+    height: 100%;
+}
+
+.body-header {
+  display: flex;
+  font-size: 1.5rem;
+  padding-bottom: 2rem;
+  align-items: center;
+}
+
+.body-icon {
+  padding-right: 1rem;
+  height: 4rem;
+  border-right: 1px solid gray;
+}
+
+.body-header .body-title {
+  padding-left: 1rem;
+}
+
+.main-body .text .moto {
+  font-size: 1.15rem;
+  padding-bottom: 2rem;
+}
+
+.word-description {
+  font-size: 1rem;
+  padding-bottom: 2rem;
+}
+
+.word-description ul {
+  list-style-type: disc; /* Or 'none' if you do not want any bullets */
+  padding-left: 20px; /* Adjust spacing to align text nicely */
+}
+
+.word-description li {
+  margin-bottom: 10px; /* Spacing between items */
+  font-size: 16px; /* Optional: Adjust font size */
+  color: #333; /* Optional: Adjust text color */
+}
+
+.text button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+.text button,
+.learn-more {
+  width: 12rem;
+  height: auto;
+}
+.circle {
+  transition: all, 0.45s;
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.625rem;
+}
+
+.circle {
+  background: #333;
+}
+
+.icon {
+  transition: all, 0.45s;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: white;
+}
+.arrowm {
+  transition: all, 0.45s;
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+.arrowm::before {
+  position: absolute;
+  content: "";
+  top: -0.26rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  transform: rotate(45deg);
+}
+
+.arrowm::before {
+  border-top: 0.125rem solid white;
+  border-right: 0.125rem solid white;
+}
+
+.button-text {
+  transition: all, 0.45s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  white-space: nowrap;
+  padding: 0.75rem 2rem;
+  margin: 0 0 0 1.85rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.button-text {
+  color: #333;
+}
+
+.button-text:hover {
+  z-index: 2;
+  font-weight: 400;
+}
+
+.button-text:hover {
+  color: white;
+  font-weight: 700;
+}
+
+.button-text:hover ~ .circle {
+  width: 100%;
+}
+.button-text:hover ~ .circle {
+  width: 19rem;
+}
+
+.button-text:hover ~ .circle .icon,
+.button-text:hover ~ .circle .arrowm {
+  transform: translate(1rem, 0);
+}
+.button-text:hover ~ .circle .icon,
+.button-text:hover ~ .circle .arrowm {
+  background: white;
+  transform: translate(1rem, 0);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.flex-item {
+  flex: 1;
+  margin: 50px;
+  text-align: center;
+}
+
+.flex-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.caption {
+  margin-top: 10px;
+}

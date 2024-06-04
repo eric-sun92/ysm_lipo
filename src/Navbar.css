@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'ITC';
+  src: local('ITC'), url('/ITCAvantGardeStd-XLt.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ITC-md';
+  src: local('ITC'), url('/ITC-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'Yale';
+    src: url('../assets/fonts/YaleDisplay.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.navbar {
+  background-color: #00356b; /* Dark background */
+  height: 100px; /* Adjust based on your preference */
+  display: flex;
+  align-items: center;
+  width: 100vw;
+}
+
+.logo {
+  margin: 5rem;
+  color: white;
+  font-size: 1.5rem;
+  font-family: "ITC-md";
+}
+
+.nav-links {
+  font-family: 'Yale';
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.nav-links li {
+  margin-left: 5rem;
+  font-size: 1.3rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #e3e1e1; /* Light text color for contrast */
+  transition: color 0.1s ease;
+}
+
+.nav-links li a:hover {
+  color: #FFFFFF; /* White color on hover */
+}
+
+.nav-links li.active a {
+  color: #FFFFFF; /* White color for active page */
+  font-weight: bold; /* Bold text for active page */
+}
