@@ -48,7 +48,7 @@ const Heatmap = () => {
   }
 
   const [selectedGroups, setSelectedGroups] = useState(initialGroups);
-  const [selectedRange, setSelectedRange] = useState('All');
+  const [selectedRange, setSelectedRange] = useState('Total Brain');
 
   function getColorForIndex(index) {
     const colors = ['#4F1E5A', '#4A4E8C', '#257F93', '#00AB8B', '#76D160', '#FCE742', '#FF8926'];
@@ -61,7 +61,7 @@ const Heatmap = () => {
   }
 
   const rowRanges = {
-    'All': {start: 0, end: 438},
+    'Total Brain': {start: 0, end: 438},
     'Cortex': { start: 1, end: 101 },
     'Olfactory Areas': { start: 102, end: 111 },
     'Hippocampal formation': { start: 112, end: 124 },
@@ -175,9 +175,9 @@ const Heatmap = () => {
     const maxValue = d3.max(filteredValues);
     const minValue = d3.min(filteredValues);
 
-    const startColor = "#FCFAAA";
-    const middleColor = "#EF857E"; 
-    const endColor = "#4C248D"; 
+    const startColor = "#FBFB9D";
+    const middleColor = "#FF7271"; 
+    const endColor = "#4A1584"; 
 
     const myColor = d3.scaleLinear()
       .range([startColor, middleColor, endColor])
@@ -215,11 +215,11 @@ const Heatmap = () => {
       .append("rect")
       .attr("x", function(d) { return x(d.group); })
       .attr("y", function(d) { return y(d.variable); })
-      .attr("width", boxWidth) // Use fixed boxWidth
-      .attr("height", boxHeight) // Use fixed boxHeight
+      .attr("width", boxWidth) 
+      .attr("height", boxHeight) 
       .style("fill", d => {
         if (d.value === null || d.value == " ") return "white"; 
-        if (d.value > 0.2) return "#351C67";
+        if (d.value > 0.2) return "#311055";
         return myColor(d.value);
       })
       .on("mouseover", function(event, d) {
@@ -296,7 +296,7 @@ const Heatmap = () => {
   return (
     <>
     <div class="wrapper">
-    <h1 style={{fontFamily: "ITC", margin: "3rem"}}>Lipofuscin Load by Anatomical Region</h1>
+    <h1 style={{fontFamily: "ITC", margin: "3rem"}}>Lipofuscin Load by Fine Anatomical Region</h1>
     <div class="container">
       <div class="filters" ref={divRef} // Assign the ref to your div
       style={{
@@ -314,10 +314,10 @@ const Heatmap = () => {
               style={{ marginRight: "1rem", 
               height: "100%", 
               width: "100%", 
-              minHeight: "120px",
+              minHeight: "143px",
               backgroundColor: 'white' }}>
             {initialGroups.map((group, index) => (
-              <option key={group} value={group} style={{ color: getColorForIndex(index) }}>{group}</option>
+              <option key={group} value={group} style={{ fontSize: "1rem", color: getColorForIndex(index) }}>{group}</option>
             ))}
           </select>
         </div>
@@ -344,24 +344,26 @@ const Heatmap = () => {
         <div className="text-2">
           <div class="body-header">
             <img class="body-icon" src="/brain-icon.png" />
-            <div class="body-title">Atlas Heatmap</div>
+            <div class="body-title">Fine Brain Region Atlas</div>
           </div>
-          <div class="moto">Heat map of lipofuscin load across fine neuroanatomical regions in wild type (WT) and PPT1 knockout (KO) mice with age.</div>
+          <div class="moto">Below is an atlas of lipofuscin load across fine neuroanatomical regions in wild type (WT) and PPT1 knockout (KO) mice with age. To explore the lipofuscin atlas, select the desired genotypes and time points from the top menu on the left. To search by the desired gross anatomical region in the Allen Mouse Brain Atlas, select a region to display in detail from the bottom menu.</div>
           <div class="word-description">
             <ul>
               <li>Displayed values are the average of n = 4 sex-matched biological replicates per genotype per timepoint (with n = 4 averaged alternate sections/biological replicate) and standard deviation.</li>
               <li>Lipofuscin load is graphed on a scale of 0-0.2 for maximum contrast across all conditions (loads above 0.2 are in dark purple).</li>
-              <li>Atlas data are searchable by gross region in the Allen Mouse Brain Atlas and by the age and genotype of the animals using the menus on the left.</li>
             </ul>
           </div>
         </div>
         <div id="my_dataviz">
-          <div style={{alignSelf: "start", fontFamily: "san-seriff", fontSize: "1.9rem", fontWeight: "500", marginBottom: "0.5rem", marginLeft: "1rem"}}>{selectedRange} Lipofuscin Load</div>
+          <div style={{display: "flex", flexDirection: "row"}}>
+            <div style={{alignSelf: "start", fontFamily: "san-seriff", fontSize: "1.9rem", fontWeight: "500"}}>{selectedRange} Lipofuscin Load</div>
+            <img src="scale_lipo.png" style={{width: "40%", marginLeft: "5rem", marginTop: "-1rem"}}></img>
+          </div>
         </div>
       </div>
-      <div style={{display: "flex"}}>
-        <img src="Lipoatlasscale.png" style={{width: "55px", height: "auto", margin: "2rem", marginTop:"-2rem"}}></img>
-      </div>
+      {/* <div style={{display: "flex"}}>
+        <img src="Lipoatlasscale.png" style={{width: "55px", height: "auto", margin: "2rem", marginTop:"33rem"}}></img>
+      </div> */}
     </div>
     </div>
     </>

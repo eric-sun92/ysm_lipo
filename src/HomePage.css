@@ -125,12 +125,8 @@ sup {
   font-size: 2rem;
 }
 
-.main-header .description {
-  font-size: 1.5rem;
-  justify-content: center;
-  width: 50vw;
-  padding-bottom: 5rem;
-  border-bottom: 1px solid gray;
+.main-header p {
+  font-size: 1.2rem
 }
 .main-header .left-description {
   font-size: 1.5rem;

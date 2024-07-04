@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import "./Heatmap.css"
 import AverageData from "./average.json"
 import Select from 'react-select';
+import "./CoronalHeatmap.css"
 // import html2canvas from 'html2canvas';
 
 const Coronal = () => {
@@ -30,11 +31,8 @@ const Coronal = () => {
     const selectedOptions = Array.from(event.target.selectedOptions).map(option => option.value);
     setSelectedGroups(selectedOptions);
   };
-//   console.log(selectedGroups)
-//   console.log(selectedRange)
 
   const handleRangeChange = selectedOption => {
-    // Assuming selectedOption is an object with { value, label } structure
     setSelectedRange(selectedOption.value);
   };
 
@@ -42,14 +40,12 @@ const Coronal = () => {
     marginBottom: '20px',
   };
   const rowRanges = {
-    'All': {start: 0, end: 438},
-    '85 - MB/TH/HPF/CTX': { start: 1, end: 101 },
+    "25 - OLF/CTX": {start: 0, end: 101},
     '36 - STR/PAL/OLF/CTX': { start: 102, end: 111 },
     '69 - CTX/HPF/TH/HY/CP': { start: 112, end: 124 },
     '85 - MB/TH/HPF/CTX': { start: 125, end: 136 },
     '98 - MB/P/CTX': { start: 137, end: 145 },
     '111 - CB/MY': { start: 146, end: 182 },
-
   };
 
   const options = Object.keys(rowRanges).map((range, index) => ({
@@ -62,13 +58,11 @@ const Coronal = () => {
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
-      color: colorArray[state.data.index], // This sets the color for options in the dropdown
+      color: colorArray[state.data.index],
     }),
     singleValue: (provided, state) => {
-      // Assuming state.data.index exists and corresponds to the option's position in your initial options array
-      // If not, you might need a different way to determine the correct color for the selected value
       const color = state.data.index !== undefined ? colorArray[state.data.index] : 'defaultColorHere';
-      return { ...provided, color }; // This sets the color for the selected value shown in the select box
+      return { ...provided, color };
     },
   };
 
@@ -76,7 +70,6 @@ const Coronal = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Change '100' to the scroll position you want
       if (window.scrollY > 400) {
         setIsFixed(true);
       } else {
@@ -84,10 +77,8 @@ const Coronal = () => {
       }
     };
 
-    // Add event listener
     window.addEventListener('scroll', handleScroll);
 
-    // Clean up
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -116,6 +107,23 @@ const Coronal = () => {
     "111 - CB/MY": "http://atlas.brain-map.org/atlas?atlas=1&plate=100960440#atlas=1&plate=100960181&resolution=13.96&x=5640&y=3984.000002543132&zoom=-3&structure=852"
 };
 
+  const [selectedRanges, setSelectedRanges] = useState(["25 - OLF/CTX", "36 - STR/PAL/OLF/CTX", "69 - CTX/HPF/TH/HY/CP", "85 - MB/TH/HPF/CTX", "98 - MB/P/CTX", "111 - CB/MY"]);
+
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+    setSelectedRanges(prevSelectedRanges => {
+        let updatedRanges;
+        if (checked) {
+            updatedRanges = [...prevSelectedRanges, value];
+        } else {
+            updatedRanges = prevSelectedRanges.filter(range => range !== value);
+        }
+        return updatedRanges.sort((a, b) => options.findIndex(option => option.value === a) - options.findIndex(option => option.value === b));
+    });
+};
+
+  console.log(selectedRanges)
+  console.log(selectedGroups)
 
   return (
     <>
@@ -124,11 +132,10 @@ const Coronal = () => {
     <div class="container">
       <div class="filters" ref={divRef} // Assign the ref to your div
       style={{
-        position: isFixed ? 'fixed' : 'absolute',
-        top: isFixed ? '-4.2rem' : '100px', // Adjust according to where you want your div to start
+        position: isFixed ? 'absolute' : 'absolute',
+        top: isFixed ? '28rem' : '100px', // Adjust according to where you want your div to start
         backgroundColor: '#ddd', // Just for visibility
-        marginBottom: "5rem",
-        height: "46rem"
+        height: "69rem",
       }}
       >
         <h3>Genotype & Age (Months)</h3>
@@ -140,30 +147,54 @@ const Coronal = () => {
               style={{ marginRight: "1rem", 
               height: "100%", 
               width: "100%", 
-              minHeight: "120px",
+              minHeight: "143px",
               backgroundColor: 'white' }}>
             {initialGroups.map((group, index) => (
-              <option key={group} value={group} style={{ color: getColorForIndex(index) }}>{group}</option>
+              <option key={group} value={group} style={{ fontSize: "1rem", color: getColorForIndex(index) }}>{group}</option>
             ))}
           </select>
         </div>
+
         <h3 style={{marginTop: "50px"}}>Coronal Plane</h3>
-        <Select options={options.map((option, index) => ({ ...option, index }))}
-        onChange={handleRangeChange} 
-        value={selectedOption ? { ...selectedOption, index: options.findIndex(option => option.value === selectedRange) } : null}
-        styles={customStyles}
-/>
+        <div className="checkboxcontainer">
+            {options.map((option) => (
+                <label key={option.value}>
+                    <input
+                        type="checkbox"
+                        value={option.value}
+                        checked={selectedRanges.includes(option.value)}
+                        onChange={handleCheckboxChange}
+                    />
+                    {option.label}
+                </label>
+            ))}
+        </div>
 
 
         <h4 style={{marginTop: "50px"}}>Region Image</h4>
         <img
-            src={`Saggital Whole Brain.png`}
+            src={`Saggital Whole Brain_Larger Numbers.png`}
             style={{ width: '100%', marginBottom: "2rem"}}
           />
 
-        <a style={{textDecoration: "none"}} href={atlasLinks[selectedRange]}>
-            Click here to view the atlas
-        </a>
+        <h4 >
+          View section in the Allen Brain Atlas
+        </h4>
+        <ul style={{ listStyleType: "none", paddingLeft: "1rem" }}>
+          {Object.keys(atlasLinks).map((key) => (
+            <li key={key} style={{ margin: "1rem 0" }}>
+              <a
+                style={{ textDecoration: "none" }}
+                href={atlasLinks[key]}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Section: {key}
+              </a>
+            </li>
+          ))}
+        </ul>
+
 
         {/* <p style={{marginTop: "50px", cursor: "pointer", textDecoration: "underline"}} onClick={downloadImage}>Download Heatmap Image</p> */}
 
@@ -173,20 +204,42 @@ const Coronal = () => {
         <div className="text-2">
           <div class="body-header">
             <img class="body-icon" src="/coronal.png" />
-            <div class="body-title">Coronal Heatmap</div>
+            <div class="body-title">Heatmap by Coronal Section</div>
           </div>
-          <div class="moto">Coronal heat maps of lipofuscin load in medial QUINT reference regions (n = 4 biological replicates per condition; average of n=4 alternate sections per replicate).</div>
+          <div class="moto">Below is a coronal atlas of lipofuscin load in wild type (WT) and PPT1 knockout (KO) mice with age. To explore lipofuscin deposition in coronal sections, select the desired genotypes and time points from the top menu on the left. To view lipofuscin load in a particular set of anatomical regions, select section(s) of interest from the bottom menu. To explore the fine anatomical areas represented in coronal sections, navigate to the Allen Brain Atlas using the links below the sagittal atlas legend.</div>
           <div class="word-description">
             <ul>
               <li>Lipofuscin load is graphed on a scale of 0-0.2 for maximum contrast across all conditions.</li>
               <li>Data were obtained for the right sagittal hemisphere and reflected across the midline for visualization purposes.</li>
               <li>Areas in grey indicate that load data was not obtained for that region, due to superimposition of sagittal section data on a coronal map.</li>
-              <li>Data can be filtered by genotype and age and by coronal section using the menus on the left.</li>
             </ul>
           </div>
         </div>
         <div id="my_dataviz">
-          <div style={{alignSelf: "start", fontFamily: "san-seriff", fontSize: "1.9rem", fontWeight: "500", marginBottom: "0.5rem", marginLeft: "1rem"}}>{selectedRange} Lipofuscin Load</div>
+          <div style={{display: "flex", flexDirection: "row"}}>
+            <div style={{alignSelf: "start", fontFamily: "san-seriff", fontSize: "1.9rem", fontWeight: "500", marginBottom: "3rem", marginLeft: "1rem"}}>Lipofuscin Load in Coronal Mouse Brain Atlas</div>
+            <img src="scale_lipo.png" style={{width: "20rem", height: "3rem", marginLeft: "3rem"}}></img>
+          </div>
+          {/*  */}
+          <div className="gallery">
+            {selectedGroups.map(group => {
+              return (
+                <div key={group} className="group">
+                  <div className="group-images">
+                    {selectedRanges.map(range => (
+                      <div key={range} className="image-container">
+                        <img 
+                          src={`Separated Series/${group.split(' ')[0]}/${range.split(' ')[0]}.png`} 
+                          alt={`${range}`} 
+                          onError={(e) => e.target.style.display = 'none'}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

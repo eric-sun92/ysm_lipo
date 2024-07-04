@@ -1,9 +1,9 @@
 body {
-  font-family: sans-serif;
+  font-family: arial;
   margin: 0;
   padding: 0;
   background-color: #f0f2f5;
-  color: #333;
+  color: "black"
 }
 
 header {
@@ -28,7 +28,7 @@ header h2 {
   margin-bottom: -5px;
 }
 
-header ul.authors {
+ul.authors {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -38,21 +38,21 @@ header ul.authors {
   font-size: 0.9rem;
 }
 
-header ul.authors li {
+ul.authors li {
   margin: 5px 15px;
   font-size: 1em;
 }
 
-header ul.affiliations {
+.affiliations {
   list-style-type: none;
   padding: 0;
   margin: 20px 0 0 0;
   text-align: left;
 }
 
-header ul.affiliations li {
-  margin: 5px 2rem;
-  font-size: 0.8rem;
+.affiliations li {
+  margin: 0rem 5rem;
+  font-size: 1.4rem;
 }
 .text-wrapper {
     margin: 2rem 5rem;
@@ -122,4 +122,11 @@ sup {
   font-size: 2rem;
 }
 
+.corresponding {
+    margin: 2.5rem 0rem
+}
 
+.corresponding p {
+  font-size: 1.1rem;
+  margin: 0.5rem 0
+}

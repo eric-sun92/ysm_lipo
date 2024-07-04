@@ -10,7 +10,7 @@ const Navbar = () => {
         <li><a href="/heatmap">Lipofuscin Atlas</a></li>
         {/* <li><a href="/fullheatmap">Tab 2</a></li> */}
         <li><a href="/coronal">Coronal Heatmap</a></li>
-        <li><a href="/aboutus">Contact and References</a></li>
+        <li><a href="/aboutus">Contact & References</a></li>
 
       </ul>
     </nav>

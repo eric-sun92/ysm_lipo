@@ -10,7 +10,6 @@ import HomePage from './HomePage';
 import HeatmapOG from "./HeatmapOG"
 import Coronal from "./CoronalHeatmap"
 import About from "./About"
-import "./App.css";
 
 function App() {
   return (

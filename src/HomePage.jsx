@@ -8,15 +8,16 @@ const HomePage = () => {
       <header>
         <h1>Molecular Elucidation of Brain Lipofuscin in Aging and Batten Disease</h1>
       </header>
-      <div className="text-wrapper">
-        <h2>What is lipofuscin?</h2>
+      <div class="main-header">
+        <div class="title">Lipofuscin: a hallmark of aging and lysosomal storage disorders</div>
         <p>
           Lipofuscin is an autofluorescent storage material that accumulates in the brain with age. Lipofuscin deposition is also observed in numerous disease states but is most profound in Batten Disease, a group of fatal neurodegenerative disorders that primarily affect children. An improved molecular and neuroanatomical understanding of lipofuscin accumulation is needed to assess the relationship of this pathological hallmark to aging and neurodegenerative processes.
         </p>
       </div>
       <div class="main-header">
-        <div class="title">Why our Study?</div>
-        <div><p>
+        <div class="title">Generation of a fine neuroanatomical atlas of lipofuscin in aging and disease</div>
+        <div>
+        <p>
           To unveil regional vulnerabilities to lipofuscin accumulation, we generated a fine neuroanatomical atlas of lipofuscin in the aging and Batten Disease brain. We utilized wild type (WT) mice as a model for typical aging, examining young mature mice expected to be lipofuscin-negative (2-months-old), healthy adult mice (12-months-old), and aged mice (18-months-old and 24-months-old). We also examined a mouse model of infantile Batten disease (CLN1) induced by loss-of-function of the depalmitoylating enzyme palmitoyl protein thioesterase 1 (PPT1). PPT1 knockout (KO) mice exhibit robust lipofuscin accumulation and recapitulate the dramatically shortened lifespan of human patients. We examined mature PPT1 KO mice prior to the onset of severe neurodegeneration (2-months-old), mice with moderate-to-severe pathology (4-months-old), and mice nearing a humane endpoint due to disease phenotypes (7-months-old). Our atlas quantifies and visualizes the progression of lipofuscin deposition across conditions in hundreds of fine brain regions. These data provide a critical resource for aging and Batten Disease studies. Further, these data urge caution in the interpretation of fluorescence imaging of aged murine brain tissue, highlighting the expected distribution of potentially confounding autofluorescent signal from lipofuscin.
         </p>
         <p>
@@ -45,12 +46,12 @@ const HomePage = () => {
         
         <div class="description"></div>
 
-        <h2 class="title" style={{marginTop: "4rem", marginBottom: "-3rem", marginLeft: "2rem"}}>Explore the Lipofuscin Atlas</h2>
+        <h2 class="title" style={{marginTop: "4rem", marginBottom: "-3rem", marginLeft: "2rem"}}>Explore the Lipofuscin Brain Atlas</h2>
         <div class="main-body i">
           <div class="text">
             <div class="body-header">
               <img class="body-icon" src="/brain-icon.png" />
-              <div class="body-title">Atlas Heatmap</div>
+              <div class="body-title">Fine Brain Region Atlas</div>
             </div>
             <div class="moto">Heat map of lipofuscin load across fine neuroanatomical regions in wild type (WT) and PPT1 knockout (KO) mice with age.</div>
             {/* <div class="word-description">
@@ -72,7 +73,7 @@ const HomePage = () => {
           <div class="text">
             <div class="body-header">
               <img class="body-icon" src="/coronal.png" />
-              <div class="body-title">Coronal Heatmap</div>
+              <div class="body-title">Heatmap by Coronal Section</div>
             </div>
             <div class="moto">Coronal heat maps of lipofuscin load in medial QUINT reference regions (n = 4 biological replicates per condition; average of n=4 alternate sections per replicate).</div>
             {/* <div class="word-description">
