@@ -10,20 +10,19 @@ import HomePage from './HomePage';
 import HeatmapOG from "./HeatmapOG"
 import Coronal from "./CoronalHeatmap"
 import About from "./About"
-import Venn from "./Venn"
+import VennDiagramPage from "./VennDiagramPage"
 
 function App() {
   return (
     <Router>
       <div>
         <Navbar/>
-        {/* Define your routes */}
         <Routes>
           <Route path="/coronal" element={<Coronal />} />
           <Route path="/heatmap" element={<Heatmap />} />
           <Route path="/fullheatmap" element={<HeatmapOG />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/Venn" element={<Venn />} />
+          <Route path="/Venn" element={<VennDiagramPage />} />
           <Route path="/references" element={<About />} />
         </Routes>
       </div>

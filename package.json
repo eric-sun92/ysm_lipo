@@ -11,17 +11,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@bokeh/bokehjs": "^3.3.4",
+    "@upsetjs/react": "^1.11.0",
     "d3": "^7.8.5",
     "express": "^4.19.2",
-    "path": "^0.12.7",
-    "puppeteer": "^22.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-heatmap-grid": "^0.9.0",
     "react-router-dom": "^6.22.1",
     "react-select": "^5.8.0",
-    "reaviz": "^15.6.2",
+    "reaviz": "^15.18.4",
     "serve": "^14.2.3"
   },
   "devDependencies": {
