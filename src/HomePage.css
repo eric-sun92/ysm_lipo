@@ -22,7 +22,7 @@ header {
 header h1 {
     font-family: "ITC";
     margin: 2rem;
-    font-size: 2.5em;
+    font-size: 4rem;
 }
 
 header h2 {
@@ -117,16 +117,16 @@ sup {
 }
 
 .main-header {
-    padding: 2rem 5rem 0rem 5rem;
+    padding: 4rem 8rem 0rem 8rem;
 }
 
 .main-header .title {
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 .main-header p {
-  font-size: 1.2rem
+  font-size: 1.5rem
 }
 .main-header .left-description {
   font-size: 1.5rem;
@@ -201,10 +201,11 @@ sup {
 
 .body-header .body-title {
   padding-left: 1rem;
+  font-size: 2rem;
 }
 
 .main-body .text .moto {
-  font-size: 1.15rem;
+  font-size: 1.5rem;
   padding-bottom: 2rem;
 }
 
