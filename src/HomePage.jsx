@@ -1,5 +1,6 @@
 import React from 'react';
 import './HomePage.css';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
@@ -61,14 +62,14 @@ const HomePage = () => {
                 <li>Atlas data are searchable by gross region in the Allen Mouse Brain Atlas and by the age and genotype of the animals using the menus on the left.</li>
               </ul>
             </div> */}
-            <a href="/heatmap" style={{textDecoration: "none", color: "inherit"}}>
+            <Link to="/heatmap" style={{ textDecoration: "none", color: "inherit" }}>
               <button className="learn-more">
                 <span className="button-text">View Atlas Heatmap</span>
                 <span className="circle" aria-hidden="true">
                   <span className="icon arrowm"></span>
                 </span>
               </button>
-            </a>
+            </Link>
           </div>
           <div className="text">
             <div className="body-header">
@@ -84,14 +85,14 @@ const HomePage = () => {
                 <li>Data can be filtered by genotype and age and by coronal section using the menus on the left.</li>
               </ul>
             </div>            */}
-             <a href="/coronal" style={{textDecoration: "none", color: "inherit"}}>
+             <Link to="/coronal" style={{textDecoration: "none", color: "inherit"}}>
               <button className="learn-more">
                 <span className="button-text">View Coronal Heatmap</span>
                 <span className="circle" aria-hidden="true">
                   <span className="icon arrowm"></span>
                 </span>
               </button>
-            </a>
+            </Link>
           </div>
         </div>
         {/* <div class="left-description"></div>

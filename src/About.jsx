@@ -77,9 +77,9 @@ const About = () => {
         <div style={{fontSize: "1.1rem"}}><span style={{fontSize: "1.6rem", fontWeight: "800"}}>References:</span>
           <h3>Allen Brain Atlas</h3>
           <p>Sagittal mouse brain image credit: {" "}
-            <a style={{textDecoration: "none"}} href="http://atlas.brain-map.org/atlas?atlas=2#atlas=2&plate=100883867&structure=549&x=7799.538010817308&y=4023.9864642803486&zoom=-3&resolution=16.11&z=5">
-              Allen Institute for Brain Science. 
-            </a>
+          <a style={{ textDecoration: "none" }} href="http://atlas.brain-map.org/atlas?atlas=2#atlas=2&plate=100883867&structure=549&x=7799.538010817308&y=4023.9864642803486&zoom=-3&resolution=16.11&z=5" target="_blank" rel="noopener noreferrer">
+            Allen Institute for Brain Science.
+          </a>
           </p>
           <p>Allen Institute for Brain Science (2004). Allen Mouse Brain Atlas - Adult Mouse. Available from {" "}
             <a style={{textDecoration: "none"}} href="http://mouse.brain-map.org">mouse.brain-map.org</a>.
