@@ -223,7 +223,7 @@ const Heatmap = () => {
     }).flat();
 
     const tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip")
+    .attr("className", "tooltip")
     .style("opacity", 0)
     .style("position", "absolute")
     .style("background", "white")
@@ -267,10 +267,10 @@ const Heatmap = () => {
 
   return (
     <>
-    <div class="wrapper">
+    <div className="wrapper">
     <h1 style={{fontFamily: "ITC", margin: "3rem"}}>Lipofuscin Load by Anatomical Region</h1>
-    <div class="container">
-      <div class="filters">
+    <div className="container">
+      <div className="filters">
         <h3>Genotype & Age (Months)</h3>
         <div style={dropdownContainerStyle}>
           <select multiple={true} value={selectedGroups} onChange={handleGroupChange} ref={selectRef}     style={{ width: '360px', height: '250px', backgroundColor: 'white' }}>

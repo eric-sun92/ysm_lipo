@@ -127,10 +127,10 @@ const Coronal = () => {
 
   return (
     <>
-    <div class="wrapper">
+    <div className="wrapper">
     <h1 style={{fontFamily: "ITC", margin: "3rem"}}>Lipofuscin Load by Anatomical Region</h1>
-    <div class="container">
-      <div class="filters" ref={divRef} // Assign the ref to your div
+    <div className="container">
+      <div className="filters" ref={divRef} // Assign the ref to your div
       style={{
         position: isFixed ? 'absolute' : 'absolute',
         top: isFixed ? '28rem' : '100px', // Adjust according to where you want your div to start
@@ -202,12 +202,12 @@ const Coronal = () => {
       </div>
       <div className="temp">
         <div className="text-2">
-          <div class="body-header">
-            <img class="body-icon" src="/coronal.png" />
-            <div class="body-title">Heatmap by Coronal Section</div>
+          <div className="body-header">
+            <img className="body-icon" src="/coronal.png" />
+            <div className="body-title">Heatmap by Coronal Section</div>
           </div>
-          <div class="moto">Below is a coronal atlas of lipofuscin load in wild type (WT) and PPT1 knockout (KO) mice with age. To explore lipofuscin deposition in coronal sections, select the desired genotypes and time points from the top menu on the left. To view lipofuscin load in a particular set of anatomical regions, select section(s) of interest from the bottom menu. To explore the fine anatomical areas represented in coronal sections, navigate to the Allen Brain Atlas using the links below the sagittal atlas legend.</div>
-          <div class="word-description">
+          <div className="moto">Below is a coronal atlas of lipofuscin load in wild type (WT) and PPT1 knockout (KO) mice with age. To explore lipofuscin deposition in coronal sections, select the desired genotypes and time points from the top menu on the left. To view lipofuscin load in a particular set of anatomical regions, select section(s) of interest from the bottom menu. To explore the fine anatomical areas represented in coronal sections, navigate to the Allen Brain Atlas using the links below the sagittal atlas legend.</div>
+          <div className="word-description">
             <ul>
               <li>Lipofuscin load is graphed on a scale of 0-0.2 for maximum contrast across all conditions.</li>
               <li>Data were obtained for the right sagittal hemisphere and reflected across the midline for visualization purposes.</li>

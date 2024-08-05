@@ -295,10 +295,10 @@ const Heatmap = () => {
 
   return (
     <>
-    <div class="wrapper">
+    <div className="wrapper">
     <h1 style={{fontFamily: "ITC", margin: "3rem"}}>Lipofuscin Load by Fine Anatomical Region</h1>
-    <div class="container">
-      <div class="filters" ref={divRef} // Assign the ref to your div
+    <div className="container">
+      <div className="filters" ref={divRef} // Assign the ref to your div
       style={{
         position: isFixed ? 'fixed' : 'absolute',
         top: isFixed ? '-4.2rem' : '100px', // Adjust according to where you want your div to start
@@ -342,12 +342,12 @@ const Heatmap = () => {
       </div>
       <div className="temp">
         <div className="text-2">
-          <div class="body-header">
-            <img class="body-icon" src="/brain-icon.png" />
-            <div class="body-title">Fine Brain Region Atlas</div>
+          <div className="body-header">
+            <img className="body-icon" src="/brain-icon.png" />
+            <div className="body-title">Fine Brain Region Atlas</div>
           </div>
-          <div class="moto">Below is an atlas of lipofuscin load across fine neuroanatomical regions in wild type (WT) and PPT1 knockout (KO) mice with age. To explore the lipofuscin atlas, select the desired genotypes and time points from the top menu on the left. To search by the desired gross anatomical region in the Allen Mouse Brain Atlas, select a region to display in detail from the bottom menu.</div>
-          <div class="word-description">
+          <div className="moto">Below is an atlas of lipofuscin load across fine neuroanatomical regions in wild type (WT) and PPT1 knockout (KO) mice with age. To explore the lipofuscin atlas, select the desired genotypes and time points from the top menu on the left. To search by the desired gross anatomical region in the Allen Mouse Brain Atlas, select a region to display in detail from the bottom menu.</div>
+          <div className="word-description">
             <ul>
               <li>Displayed values are the average of n = 4 sex-matched biological replicates per genotype per timepoint (with n = 4 averaged alternate sections/biological replicate) and standard deviation.</li>
               <li>Lipofuscin load is graphed on a scale of 0-0.2 for maximum contrast across all conditions (loads above 0.2 are in dark purple).</li>
