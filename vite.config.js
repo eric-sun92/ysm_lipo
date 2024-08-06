@@ -11,5 +11,5 @@ export default defineConfig({
       'venn.js': path.resolve(__dirname, './node_modules/venn.js/build/venn.js')
     }
   },
-  base: '/',
+  base: '/assets/',
 })
