@@ -4,12 +4,13 @@ import * as d3 from "d3";
 import * as venn from "venn.js";
 
 const VennDiagramPage = () => {
-  const [inputSet1, setInputSet1] = useState(["abc"]);
-  const [inputSet2, setInputSet2] = useState(["test"]);
+  const [inputSet1, setInputSet1] = useState(["abc", "pop"]);
+  const [inputSet2, setInputSet2] = useState(["test", "pop"]);
   const [selectedElements, setSelectedElements] = useState([]);
   const [selectedArea, setSelectedArea] = useState(null);
   const [selectedTextArea, setSelectedTextArea] = useState("");
-
+  const [selectedSetName, setSelectedSetName] = useState("");
+  
   const calculateIntersection = (set1, set2) =>
     set1.filter((x) => set2.includes(x));
 
@@ -35,23 +36,7 @@ const VennDiagramPage = () => {
       .style("fill", "white")
       .style("stroke", "black");
 
-    d3.selectAll("#venn text")
-      .style("fill", "black")
-      .each(function (d) {
-        if (d.sets.length === 1 && d.sets[0] === "Set 1") {
-          d3.select(this).text("abc");
-        } else if (d.sets.length === 1 && d.sets[0] === "Set 2") {
-          d3.select(this).text("test");
-        } else if (
-          d.sets.length === 2 &&
-          d.sets.includes("Set 1") &&
-          d.sets.includes("Set 2")
-        ) {
-          d3.select(this).text("abc, test");
-        } else {
-          d3.select(this).text(d.size);
-        }
-      });
+    d3.selectAll("#venn text").style("fill", "black");
 
     const tooltip = d3
       .select("body")
@@ -71,16 +56,18 @@ const VennDiagramPage = () => {
 
     div.selectAll("g")
       .on("mouseover", function (event, d) {
-        if (!d.sets) return;
+        // venn.sortAreas(div, d);
 
-        venn.sortAreas(div, d);
+        tooltip.transition().style("opacity", 0.9);
+        tooltip.html(`${d.size}`);
 
-        const elementsList = d.elements.join(", ");
-        tooltip.transition().duration(400).style("opacity", 0.9);
-        tooltip.html(`Number of elems - ${d.size}`);
+        if (!d.sets || selectedArea === d.sets.join(",")) return;
 
-        const selection = d3.select(this).transition("tooltip").duration(400);
-        selection.select("path").style("stroke-width", 3);
+        const selection = d3.select(this).transition("tooltip")
+        selection
+          .select("path")
+          .style("fill", "#c2c2c2")
+          .style("fill-opacity", d.sets.length === 1 ? 0.4 : 0.5);
       })
       .on("mousemove", function (event) {
         tooltip
@@ -88,13 +75,19 @@ const VennDiagramPage = () => {
           .style("top", event.pageY - 40 + "px");
       })
       .on("mouseout", function (event, d) {
-        if (!d.sets) return;
 
-        tooltip.transition().duration(400).style("opacity", 0);
-        const selection = d3.select(this).transition("tooltip").duration(400);
-        selection.select("path").style("stroke-width", 0);
+        tooltip.transition().style("opacity", 0);
+
+        if (!d.sets || selectedArea === d.sets.join(",")) return;
+
+        const selection = d3.select(this).transition("tooltip")
+        selection
+          .select("path")
+          // .style("fill", "white")
+          .style("fill-opacity", d.sets.length === 1 ? 0 : 0.0);
       })
       .on("click", function (event, d) {
+        console.log(d);
         if (d.elements) {
           const elementDetails = d.elements.map((elem) => {
             if (inputSet1.includes(elem) && inputSet2.includes(elem)) {
@@ -110,22 +103,24 @@ const VennDiagramPage = () => {
           setSelectedElements(elementDetails);
           setSelectedTextArea(elementDetails.join("\n"));
 
-          // Update selected area
           setSelectedArea(d.sets.join(","));
+          setSelectedSetName(d.sets.length === 1 ? d.sets[0] : "Intersection");
+
+          // Set fill color to gray for the intersection area
+          d3.select(this).select("path").style("fill", "#404040");
         }
       });
 
     return () => {
       tooltip.remove();
     };
-  }, [baseSets, inputSet1, inputSet2]);
+  }, [baseSets, inputSet1, inputSet2, selectedArea]);
 
   useEffect(() => {
-    d3.selectAll("#venn .venn-circle path")
-      .style("fill", function (d) {
-        const isSelected = selectedArea === d.sets.join(",");
-        return isSelected ? "gray" : "white";
-      });
+    d3.selectAll("#venn .venn-circle path").style("fill", function (d) {
+      const isSelected = selectedArea === d.sets.join(",");
+      return isSelected ? "#404040" : "white";
+    });
   }, [selectedArea]);
 
   const [isFixed, setIsFixed] = useState(false);
@@ -151,6 +146,27 @@ const VennDiagramPage = () => {
   const atlasLinks = {
     "25 - OLF/CTX":
       "http://atlas.brain-map.org/atlas?atlas=1&plate=100960440#atlas=1&plate=100960424&resolution=13.96&x=5640&y=3983.9998372395835&zoom=-3&structure=342",
+  };
+
+  const downloadSelectedSet = () => {
+    const element = document.createElement("a");
+    const file = new Blob([selectedTextArea], {
+      type: "text/plain",
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = `${selectedSetName.replace(/\s/g, "_")}_selected_set.txt`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
+  const resetSets = () => {
+    setInputSet1(["abc", "pop"]);
+    setInputSet2(["test", "pop"]);
+    setSelectedElements([]);
+    setSelectedArea(null);
+    setSelectedTextArea("");
+    setSelectedSetName("");
   };
 
   return (
@@ -188,7 +204,9 @@ const VennDiagramPage = () => {
               }
               className="input-textarea"
             />
-
+            <button onClick={resetSets} style={{ marginTop: "20px" }}>
+              Reset Sets
+            </button>
             <h4 style={{ marginTop: "50px" }}>Region Image</h4>
             <img
               src={`Saggital Whole Brain_Larger Numbers.png`}
@@ -250,13 +268,15 @@ const VennDiagramPage = () => {
                 <div>
                   {selectedElements.length > 0 && (
                     <div className="selection-info">
-                      <h4>Selected Elements:</h4>
+                      <h4>Selected Set: {selectedSetName}</h4>
                       <textarea
                         value={selectedTextArea}
                         readOnly
-                        style={{ width: "150%", height: "250px" }}
                         className="input-textarea"
                       />
+                      <button onClick={downloadSelectedSet} style={{ marginTop: "10px" }}>
+                        Download Selected Set
+                      </button>
                     </div>
                   )}
                 </div>
