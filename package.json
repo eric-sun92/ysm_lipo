@@ -20,7 +20,8 @@
     "react-select": "^5.8.0",
     "reaviz": "^15.18.4",
     "serve": "^14.2.3",
-    "venn.js": "^0.2.20"
+    "venn.js": "^0.2.20",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
