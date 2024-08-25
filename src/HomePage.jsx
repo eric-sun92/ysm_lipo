@@ -94,6 +94,28 @@ const HomePage = () => {
               </button>
             </Link>
           </div>
+          <div className="text">
+            <div className="body-header">
+              <img className="body-icon" src="/Venn Logo.png" />
+              <div className="body-title">Lipofuscin Proteome</div>
+            </div>
+            <div class="moto">Proteins present in autofluorescent liopofuscin fractions derived from brain were identified by Label Free Quantification Mass Spectrometry (LFQ-MS).</div>
+            {/* <div class="word-description">
+              <ul>
+                <li>Displayed values are the average of n = 4 sex-matched biological replicates per genotype per timepoint (with n = 4 averaged alternate sections/biological replicate) and standard deviation.</li>
+                <li>Lipofuscin load is graphed on a scale of 0-0.2 for maximum contrast across all conditions (loads above 0.2 are in dark purple).</li>
+                <li>Atlas data are searchable by gross region in the Allen Mouse Brain Atlas and by the age and genotype of the animals using the menus on the left.</li>
+              </ul>
+            </div> */}
+            <Link to="/heatmap" style={{ textDecoration: "none", color: "inherit" }}>
+              <button className="learn-more">
+                <span className="button-text">View Lipofuscin Proteome</span>
+                <span className="circle" aria-hidden="true">
+                  <span className="icon arrowm"></span>
+                </span>
+              </button>
+            </Link>
+          </div>
         </div>
         {/* <div class="left-description"></div>
         <div class="main-body ii">

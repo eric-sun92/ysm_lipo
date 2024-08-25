@@ -11,7 +11,7 @@ const Navbar = () => {
         <li><Link to="/heatmap">Lipofuscin Atlas</Link></li>
         {/* <li><Link to="/fullheatmap">Tab 2</Link></li> */}
         <li><Link to="/coronal">Coronal Heatmap</Link></li>
-        <li><Link to="/Venn">Venn</Link></li>
+        <li><Link to="/Venn">Lipofuscin Proteome</Link></li>
         <li><Link to="/references">Contact & References</Link></li>
       </ul>
     </nav>

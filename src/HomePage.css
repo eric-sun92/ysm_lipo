@@ -176,37 +176,37 @@ sup {
 }
 
 .main-body .text {
-    margin-top: 10rem;
+    margin-top: 12rem;
     display: flex;
     flex-direction: column;
     font-style: "Yale";
-    min-width: 30rem;
+    min-width: 25rem;
     max-height: 40rem;
-    padding: 4rem;
+    padding: 1rem;
     height: 100%;
 }
 
 .body-header {
   display: flex;
-  font-size: 1.5rem;
+  font-size: 1rem;
   padding-bottom: 2rem;
   align-items: center;
 }
 
 .body-icon {
-  padding-right: 1rem;
-  height: 4rem;
+  padding-right: 0.5rem;
+  height: 3rem;
   border-right: 1px solid gray;
 }
 
 .body-header .body-title {
   padding-left: 1rem;
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 
 .main-body .text .moto {
-  font-size: 1.5rem;
-  padding-bottom: 2rem;
+  font-size: 1.1rem;
+  padding-bottom: 1rem;
 }
 
 .word-description {

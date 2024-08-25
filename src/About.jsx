@@ -33,9 +33,9 @@ const About = () => {
       <div>
         <div style={{fontSize: "1.4rem", margin: "3rem 5rem"}}>
           <span style={{fontFamily: "Arial", fontSize: "1.6rem", fontWeight: "bold"}}>Authors: </span> 
-          Sofia Massaro Tieze<sup>1,2</sup>, Alexander Esqueda<sup>1,2</sup>, Matija Lagator<sup>3</sup>,
-          Rachel McAllister<sup>4</sup>, Jean Kanyo<sup>5,6</sup>, Florine Collin<sup>5,6</sup>, Eric Sun<sup>7</sup>,
-          Nicholas Lockyer<sup>3</sup>, Kallol Gupta<sup>4</sup>, TuKiet T. Lam<sup>5,6</sup>, Sreeganga S. Chandra<sup>1</sup>
+          Sofia Massaro Tieze<sup>1,2</sup>, Alexander Esqueda<sup>1,2</sup>, Rachel McAllister<sup>3</sup>,
+          Matija Lagator<sup>4</sup>, Betül Yücel<sup>1</sup>, Jean Kanyo<sup>5,6</sup>, Florine Collin<sup>5,6</sup>, Eric Sun<sup>7</sup>,
+          TuKiet T. Lam<sup>5,6</sup>, Nicholas Lockyer<sup>4</sup>, Kallol Gupta<sup>3</sup>, Sreeganga S. Chandra<sup>1</sup>
 
         {/* <ul className="authors">
           <li>Sofia Massaro Tieze<sup>1,2</sup></li>
@@ -65,8 +65,8 @@ const About = () => {
         <ul className="affiliations">
           <li><sup>1</sup>Departments of Neurology & Neuroscience, Yale University, New Haven, CT, USA</li>
           <li><sup>2</sup>Interdepartmental Neuroscience Program, Yale University, New Haven, CT, USA</li>
-          <li><sup>3</sup>Department of Chemistry, University of Manchester, Manchester, UK</li>
-          <li><sup>4</sup>Department of Cell Biology, Yale University, New Haven, CT, USA</li>
+          <li><sup>3</sup>Department of Cell Biology, Yale University, New Haven, CT, USA</li>
+          <li><sup>4</sup>Department of Chemistry, University of Manchester, Manchester, UK</li>
           <li><sup>5</sup>Departments of Molecular Biophysics and Biochemistry, Yale University, New Haven, CT, USA</li>
           <li><sup>6</sup>Keck Mass Spectrometry & Proteomics Resource, W.M. Keck Biotechnology Resource Laboratory, New Haven, CT, USA</li>
           <li><sup>7</sup>Yale College, Yale University, New Haven, CT, USA</li>

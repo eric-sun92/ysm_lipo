@@ -6,13 +6,12 @@ import * as XLSX from "xlsx";
 
 
 const VennDiagramPage = () => {
-  const [inputSet1, setInputSet1] = useState(["abc", "pop"]);
-  const [inputSet2, setInputSet2] = useState(["test", "pop"]);
+  const [inputSet1, setInputSet1] = useState([]);
+  const [inputSet2, setInputSet2] = useState([]);
   const [selectedElements, setSelectedElements] = useState([]);
   const [selectedArea, setSelectedArea] = useState(null);
   const [selectedTextArea, setSelectedTextArea] = useState("");
   const [selectedSetName, setSelectedSetName] = useState("");
-  console.log(inputSet2)
 
   const capRatioDifference = (size1, size2, maxRatio = 5) => {
     if (size1 === 0 || size2 === 0) return { cappedSize1: size1, cappedSize2: size2 }; // Avoid division by zero
@@ -53,10 +52,24 @@ const VennDiagramPage = () => {
     div.datum(baseSets).call(chart);
 
     d3.selectAll("#venn .venn-circle path")
+    .filter((d) => d.sets && d.sets.length === 1 && d.sets[0] === "Set 1")
       .style("fill", "white")
-      .style("stroke", "black");
+      .style("stroke", "#FF00FF");
 
-    d3.selectAll("#venn text").style("fill", "black");
+    d3.selectAll("#venn text").style("fill", function (event, d) {
+      if (d == 0) {
+        return "#ff24ed"
+      }
+      else {
+        return "black"
+      }
+      })
+
+    d3.selectAll("#venn .venn-circle path")
+    .filter((d) => d.sets && d.sets.length === 1 && d.sets[0] === "Set 2")
+    .style("fill", "white")
+    .style("stroke", "black");
+
 
     const tooltip = d3
       .select("body")
@@ -94,7 +107,16 @@ const VennDiagramPage = () => {
         const selection = d3.select(this).transition("tooltip")
         selection
           .select("path")
-          .style("fill", "#c2c2c2")
+          .style("fill", function (d) {
+            if (d.sets.length === 1 && d.sets[0] === "Set 1") {
+              return "#f76fec"
+            }
+            if (d.sets.length === 1 && d.sets[0] === "Set 2") {
+              return "#c2c2c2"
+            }
+            return "#c2c2c2"
+          })
+          // .style("fill", "#c2c2c2")
           .style("fill-opacity", d.sets.length === 1 ? 0.4 : 0.5);
       })
       .on("mousemove", function (event) {
@@ -133,7 +155,9 @@ const VennDiagramPage = () => {
           setSelectedArea(d.sets.join(","));
           setSelectedSetName(d.sets.length === 1 ? d.sets[0] : "Intersection");
 
-          d3.select(this).select("path").style("fill", "#404040");
+          // d3.select(this).select("path").style("fill", "#404040");
+          d3.select(this).select("path").style("fill", "#FF00FF")
+
         }
       });
 
@@ -145,9 +169,19 @@ const VennDiagramPage = () => {
   useEffect(() => {
     d3.selectAll("#venn .venn-circle path").style("fill", function (d) {
       const isSelected = selectedArea === d.sets.join(",");
-      return isSelected ? "#404040" : "white";
+  
+      // Check if the set is "Set 1"
+      if (d.sets.length === 1 && d.sets[0] === "Set 1") {
+        return isSelected ? "#FF00FF" : "white"; // Change fill color for Set 1
+      }
+  
+      // Check if the set is "Set 2"
+      if (d.sets.length === 1 && d.sets[0] === "Set 2") {
+        return isSelected ? "#404040" : "white"; // Change fill color for Set 2
+      }
     });
   }, [selectedArea]);
+  
 
   const [isFixed, setIsFixed] = useState(false);
 
@@ -223,7 +257,7 @@ const VennDiagramPage = () => {
   return (
     <>
       <div className="wrapper">
-        <h1 style={{ fontFamily: "ITC", margin: "3rem" }}>Venn Diagram Page</h1>
+        <h1 style={{ fontFamily: "ITC", margin: "3rem" }}>Lipofuscin Proteome</h1>
         <div className="container">
           <div
             className="filters"
@@ -303,34 +337,19 @@ const VennDiagramPage = () => {
           <div className="temp">
             <div className="text-2">
               <div className="body-header">
-                <img className="body-icon" src="/coronal.png" />
-                <div className="body-title">Heatmap by Coronal Section</div>
+                <img className="body-icon" src="/Venn Logo.png" />
+                <div className="body-title">Lipofuscin Proteome</div>
               </div>
               <div className="moto">
-                Below is a coronal atlas of lipofuscin load in wild type (WT)
-                and PPT1 knockout (KO) mice with age. To explore lipofuscin
-                deposition in coronal sections, select the desired genotypes and
-                time points from the top menu on the left. To view lipofuscin
-                load in a particular set of anatomical regions, select
-                section(s) of interest from the bottom menu. To explore the fine
-                anatomical areas represented in coronal sections, navigate to
-                the Allen Brain Atlas using the links below the sagittal atlas
-                legend.
+              Proteins present in autofluorescent liopofuscin fractions derived from brain were identified by Label Free Quantification Mass Spectrometry (LFQ-MS). 
               </div>
               <div className="word-description">
                 <ul>
                   <li>
-                    Lipofuscin load is graphed on a scale of 0-0.2 for maximum
-                    contrast across all conditions.
+                  Below is a Venn diagram tool to compare proteins identified in lipofuscin (n = 688) with your proteomic data or protein of interest.
                   </li>
                   <li>
-                    Data were obtained for the right sagittal hemisphere and
-                    reflected across the midline for visualization purposes.
-                  </li>
-                  <li>
-                    Areas in grey indicate that load data was not obtained for
-                    that region, due to superimposition of sagittal section data
-                    on a coronal map.
+                  Protein names are listed in UniProt protein ID nomenclature.                                
                   </li>
                 </ul>
               </div>
