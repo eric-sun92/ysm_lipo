@@ -240,8 +240,9 @@ sup {
 }
 .text button,
 .learn-more {
-  width: 12rem;
+  width: 19rem;
   height: auto;
+  border-radius: 2rem;
 }
 .circle {
   transition: all, 0.45s;
@@ -251,9 +252,6 @@ sup {
   width: 3rem;
   height: 3rem;
   border-radius: 1.625rem;
-}
-
-.circle {
   background: #333;
 }
 
