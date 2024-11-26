@@ -21,12 +21,7 @@ const HomePage = () => {
         <p>
           To unveil regional vulnerabilities to lipofuscin accumulation, we generated a fine neuroanatomical atlas of lipofuscin in the aging and Batten Disease brain. We utilized wild type (WT) mice as a model for typical aging, examining young mature mice expected to be lipofuscin-negative (2-months-old), healthy adult mice (12-months-old), and aged mice (18-months-old and 24-months-old). We also examined a mouse model of infantile Batten disease (CLN1) induced by loss-of-function of the depalmitoylating enzyme palmitoyl protein thioesterase 1 (PPT1). PPT1 knockout (KO) mice exhibit robust lipofuscin accumulation and recapitulate the dramatically shortened lifespan of human patients. We examined mature PPT1 KO mice prior to the onset of severe neurodegeneration (2-months-old), mice with moderate-to-severe pathology (4-months-old), and mice nearing a humane endpoint due to disease phenotypes (7-months-old). Our atlas quantifies and visualizes the progression of lipofuscin deposition across conditions in hundreds of fine brain regions. These data provide a critical resource for aging and Batten Disease studies. Further, these data urge caution in the interpretation of fluorescence imaging of aged murine brain tissue, highlighting the expected distribution of potentially confounding autofluorescent signal from lipofuscin.
         </p>
-        <p>
-          To identify lipofuscin constituents and dissect pathways related to lipofuscin biogenesis, we conducted a multimodal mass spectrometric analysis of purified and in situ lipofuscin. Here we present a searchable proteome of lipofuscin and downloadable lipidomics and Time-of-Flight Secondary Ion Mass Spectrometry (ToF-SIMS) datasets of lipofuscin to browse lipofuscin components.
-        </p>
-        <p>
-          Overall, our study offers a rich compositional and neuroanatomical dissection of lipofuscin in aging and Batten Disease with diverse etiological implications.
-        </p></div>
+        </div>
 
         {/* <h2 class="title" style={{marginTop: "4rem"}}>Initial Results</h2> */}
         <div className="container">
@@ -76,7 +71,7 @@ const HomePage = () => {
               <img className="body-icon" src="/coronal.png" />
               <div className="body-title">Heatmap by Coronal Section</div>
             </div>
-            <div className="moto">Coronal heat maps of lipofuscin load in medial QUINT reference regions (n = 4 biological replicates per condition; average of n=4 alternate sections per replicate).</div>
+            <div className="moto">Coronal heat maps of lipofuscin load in medial brain regions in WT and PPT1 KO mice.</div>
             {/* <div class="word-description">
               <ul>
                 <li>Lipofuscin load is graphed on a scale of 0-0.2 for maximum contrast across all conditions.</li>
@@ -94,19 +89,13 @@ const HomePage = () => {
               </button>
             </Link>
           </div>
-          <div className="text">
+          {/* <div className="text">
             <div className="body-header">
               <img className="body-icon" src="/Venn Logo.png" />
               <div className="body-title">Lipofuscin Proteome</div>
             </div>
             <div class="moto">Proteins present in autofluorescent liopofuscin fractions derived from brain were identified by Label Free Quantification Mass Spectrometry (LFQ-MS).</div>
-            {/* <div class="word-description">
-              <ul>
-                <li>Displayed values are the average of n = 4 sex-matched biological replicates per genotype per timepoint (with n = 4 averaged alternate sections/biological replicate) and standard deviation.</li>
-                <li>Lipofuscin load is graphed on a scale of 0-0.2 for maximum contrast across all conditions (loads above 0.2 are in dark purple).</li>
-                <li>Atlas data are searchable by gross region in the Allen Mouse Brain Atlas and by the age and genotype of the animals using the menus on the left.</li>
-              </ul>
-            </div> */}
+            
             <Link to="/heatmap" style={{ textDecoration: "none", color: "inherit" }}>
               <button className="learn-more">
                 <span className="button-text">View Lipofuscin Proteome</span>
@@ -115,7 +104,7 @@ const HomePage = () => {
                 </span>
               </button>
             </Link>
-          </div>
+          </div> */}
         </div>
         {/* <div class="left-description"></div>
         <div class="main-body ii">
