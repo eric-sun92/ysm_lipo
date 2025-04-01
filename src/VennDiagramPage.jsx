@@ -32,17 +32,28 @@ const VennDiagramPage = () => {
 
   const baseSets = useMemo(
     () => {
-      const { cappedSize1, cappedSize2 } = capRatioDifference(inputSet1.length, inputSet2.length);
-
-      return [
-      { sets: ["Set 1"], size: cappedSize1, elements: inputSet1 },
-      { sets: ["Set 2"], size: cappedSize2, elements: inputSet2 },
-      {
-        sets: ["Set 1", "Set 2"],
-        size: calculateIntersection(inputSet1, inputSet2).length,
-        elements: calculateIntersection(inputSet1, inputSet2),
-      },
-    ]},
+      // Get non-empty items for calculations
+      const set1Items = inputSet1.map(item => item.trim()).filter(item => item !== "");
+      const set2Items = inputSet2.map(item => item.trim()).filter(item => item !== "");
+      
+      const sets = [];
+      if (set1Items.length > 0) {
+        const { cappedSize1, cappedSize2 } = capRatioDifference(set1Items.length, set2Items.length);
+        sets.push({ sets: ["Set 1"], size: cappedSize1, elements: set1Items });
+      }
+      if (set2Items.length > 0) {
+        const { cappedSize1, cappedSize2 } = capRatioDifference(set1Items.length, set2Items.length);
+        sets.push({ sets: ["Set 2"], size: cappedSize2, elements: set2Items });
+      }
+      if (set1Items.length > 0 && set2Items.length > 0) {
+        sets.push({
+          sets: ["Set 1", "Set 2"],
+          size: calculateIntersection(set1Items, set2Items).length,
+          elements: calculateIntersection(set1Items, set2Items),
+        });
+      }
+      return sets;
+    },
     [inputSet1, inputSet2]
   );
 
@@ -273,11 +284,11 @@ const VennDiagramPage = () => {
               <h3 style={{ marginTop: "10px" }}>Set 1</h3>
               <textarea
                 value={inputSet1.join("\n")}
-                onChange={(e) =>
-                  setInputSet1(
-                    e.target.value.split("\n").map((item) => item.trim())
-                  )
-                }
+                onChange={(e) => {
+                  const lines = e.target.value.split("\n");
+                  const setItems = lines.map(item => item.trim()).filter(item => item !== "");
+                  setInputSet1(setItems.length > 0 ? lines : []);
+                }}
                 className="input-textarea"
               />
               <h4 style={{marginBottom: "10px", marginTop: "0"}}>
@@ -293,11 +304,11 @@ const VennDiagramPage = () => {
               <h3 style={{ marginTop: "40px" }}>Set 2</h3>
               <textarea
                 value={inputSet2.join("\n")}
-                onChange={(e) =>
-                  setInputSet2(
-                    e.target.value.split("\n").map((item) => item.trim())
-                  )
-                }
+                onChange={(e) => {
+                  const lines = e.target.value.split("\n");
+                  const setItems = lines.map(item => item.trim()).filter(item => item !== "");
+                  setInputSet2(setItems.length > 0 ? lines : []);
+                }}
                 className="input-textarea"
               />
               <h4 style={{marginBottom: "10px", marginTop: "0"}}>

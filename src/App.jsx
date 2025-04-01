@@ -22,7 +22,7 @@ function App() {
           <Route path="/heatmap" element={<Heatmap />} />
           <Route path="/fullheatmap" element={<HeatmapOG />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/Venn" element={<VennDiagramPage />} />
+          <Route path="/proteome" element={<VennDiagramPage />} />
           <Route path="/references" element={<About />} />
         </Routes>
       </div>
