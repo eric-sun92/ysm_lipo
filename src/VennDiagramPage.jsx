@@ -192,7 +192,36 @@ const VennDiagramPage = () => {
       }
     });
   }, [selectedArea]);
-  
+
+  useEffect(() => {
+    if (!selectedArea) return;
+
+    const set1Items = inputSet1.map(item => item.trim()).filter(item => item !== "");
+    const set2Items = inputSet2.map(item => item.trim()).filter(item => item !== "");
+    
+    let updatedElements = [];
+    if (selectedArea === "Set 1") {
+      updatedElements = set1Items;
+    } else if (selectedArea === "Set 2") {
+      updatedElements = set2Items;
+    } else if (selectedArea === "Set 1,Set 2") {
+      updatedElements = calculateIntersection(set1Items, set2Items);
+    }
+
+    const elementDetails = updatedElements.map((elem) => {
+      if (set1Items.includes(elem) && set2Items.includes(elem)) {
+        return `${elem} (both sets)`;
+      } else if (set1Items.includes(elem)) {
+        return `${elem} (Set 1)`;
+      } else if (set2Items.includes(elem)) {
+        return `${elem} (Set 2)`;
+      }
+      return elem;
+    });
+
+    setSelectedElements(elementDetails);
+    setSelectedTextArea(elementDetails.join("\n"));
+  }, [inputSet1, inputSet2, selectedArea]);
 
   const [isFixed, setIsFixed] = useState(false);
 
