@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import "./Heatmap.css"
 import AverageData from "./average.json"
-import Select from 'react-select';
 import "./CoronalHeatmap.css"
-// import html2canvas from 'html2canvas';
 
 const Coronal = () => {
   const [isFixed, setIsFixed] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const divRef = useRef(null);
 
@@ -69,20 +67,31 @@ const Coronal = () => {
   const selectedOption = options.find(option => option.value === selectedRange) || null;
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setIsFixed(true);
-      } else {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth <= 768) {
         setIsFixed(false);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      if (!isMobile && divRef.current) {
+        if (window.scrollY > 250) {
+          setIsFixed(true);
+        } else {
+          setIsFixed(false);
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isMobile]);
 
   // const downloadImage = async () => {
   //   const dataVizDiv = document.getElementById('my_dataviz');
@@ -129,13 +138,11 @@ const Coronal = () => {
     <>
     <div className="wrapper">
     <h1 style={{fontFamily: "ITC", margin: "3rem"}}>Lipofuscin Load by Anatomical Region</h1>
-    <div className="container">
-      <div className="filters" ref={divRef} // Assign the ref to your div
+    <div className="coronal-container">
+      <div className="coronal-filters" ref={divRef} // Assign the ref to your div
       style={{
-        position: isFixed ? 'absolute' : 'absolute',
-        top: isFixed ? '28rem' : '100px', // Adjust according to where you want your div to start
-        backgroundColor: '#ddd', // Just for visibility
-        height: "69rem",
+        position: isMobile ? 'relative' : (isFixed ? 'fixed' : 'absolute'),
+        top: isMobile ? 'auto' : (isFixed ? '-4.2rem' : '100px'),
       }}
       >
         <h3>Genotype & Age (Months)</h3>

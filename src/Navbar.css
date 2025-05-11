@@ -24,11 +24,16 @@
   height: 100px; /* Adjust based on your preference */
   display: flex;
   align-items: center;
-  width: 100vw;
+  width: 100%; /* Changed from 100vw to prevent overflow */
+  justify-content: space-between;
+  padding: 0 20px;
+  position: relative;
+  box-sizing: border-box; /* Ensure padding is included in width calculation */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .logo {
-  margin: 5rem;
+  margin-left: 5rem;
   color: white;
   font-size: 1.5rem;
   font-family: "ITC-md";
@@ -39,6 +44,8 @@
   list-style: none;
   padding: 0;
   display: flex;
+  margin-right: 20px;
+  transition: all 0.3s ease-in-out;
 }
 
 .nav-links li {
@@ -59,4 +66,103 @@
 .nav-links li.active a {
   color: #FFFFFF; /* White color for active page */
   font-weight: bold; /* Bold text for active page */
+}
+
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.hamburger-line.open:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 1024px) {
+  .nav-links li {
+    margin-left: 3rem;
+    font-size: 1.1rem;
+  }
+  
+  .logo {
+    margin-left: 2rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    padding: 0 20px;
+    height: 80px;
+  }
+  
+  .logo {
+    margin-left: 0;
+    z-index: 10;
+  }
+  
+  .hamburger-menu {
+    display: flex;
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    background-color: #00356b;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 80px 0 30px 0;
+    transition: right 0.3s ease-in-out;
+    z-index: 5;
+    overflow-y: auto;
+  }
+  
+  .nav-links.active {
+    right: 0;
+  }
+  
+  .nav-links li {
+    margin: 12px 0;
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar {
+    height: 70px;
+  }
+  
+  .logo {
+    font-size: 1.2rem;
+  }
+  
+  .nav-links {
+    width: 100%;
+  }
 }

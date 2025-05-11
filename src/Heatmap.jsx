@@ -9,6 +9,7 @@ import Select from 'react-select';
 const Heatmap = () => {
   // console.log(SD)
   const [isFixed, setIsFixed] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const divRef = useRef(null);
 
@@ -238,6 +239,33 @@ const Heatmap = () => {
     };
   }, [selectedGroups, selectedRange]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth <= 768) {
+        setIsFixed(false);
+      }
+    };
+
+    const handleScroll = () => {
+      if (!isMobile && divRef.current) {
+        if (window.scrollY > 250) {
+          setIsFixed(true);
+        } else {
+          setIsFixed(false);
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isMobile]);
+
   const options = Object.keys(rowRanges).map((range, index) => ({
     value: range,
     label: range,
@@ -260,49 +288,16 @@ const Heatmap = () => {
 
   const selectedOption = options.find(option => option.value === selectedRange) || null;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Change '100' to the scroll position you want
-      if (window.scrollY > 160) {
-        setIsFixed(true);
-      } else {
-        setIsFixed(false);
-      }
-    };
-
-    // Add event listener
-    window.addEventListener('scroll', handleScroll);
-
-    // Clean up
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  // const downloadImage = async () => {
-  //   const dataVizDiv = document.getElementById('my_dataviz');
-  //   const canvas = await html2canvas(dataVizDiv);
-  //   const image = canvas.toDataURL('image/png', 1.0);
-  
-  //   // Create a link to trigger the download
-  //   const link = document.createElement('a');
-  //   link.href = image;
-  //   link.download = `${selectedRange}-Lipofuscin-Load.png`; // Name of the file to be downloaded
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-  // };
-
   return (
     <>
     <div className="wrapper">
     <h1 style={{fontFamily: "ITC", margin: "3rem"}}>Lipofuscin Load by Fine Anatomical Region</h1>
-    <div className="container">
-      <div className="filters" ref={divRef} // Assign the ref to your div
+    <div className="heatmap-container">
+      <div className="heatmap-filters" ref={divRef}
       style={{
-        position: isFixed ? 'fixed' : 'absolute',
-        top: isFixed ? '-4.2rem' : '100px', // Adjust according to where you want your div to start
-        backgroundColor: '#ddd', // Just for visibility
+        position: isMobile ? 'relative' : (isFixed ? 'fixed' : 'absolute'),
+        top: isMobile ? 'auto' : (isFixed ? '-4.2rem' : '100px'),
+        backgroundColor: '#f5f5f5',
       }}
       >
         <h3>Genotype & Age (Months)</h3>

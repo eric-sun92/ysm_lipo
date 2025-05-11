@@ -2,15 +2,15 @@
     margin: 2rem;
 }
 
-.container {
+.heatmap-container {
   display: flex;
   justify-content: flex-start;
 }
 
-.filters {
+.heatmap-filters {
   position: fixed;
   width: 400px; /* Sets the width to half of the viewport height */
-  height: 100vh; /* Sets the height to the full viewport height */
+  height: 85vh; /* Sets the height to the full viewport height */
   border: 1px solid #e3e3e3; /* Adds a border around the filters box */
   box-sizing: border-box; /* Ensures that padding and border are included in the width and height */
   padding: 20px 40px;
@@ -28,16 +28,20 @@
   align-items: center;
   flex-direction: column;
   width: 55rem;
+  max-width: 100%;
+  overflow-x: auto; /* Allow horizontal scrolling for the visualization if needed */
 }
 
 .temp {
   display: flex;
   align-items: center;
   flex-direction: column;
+  width: 100%;
 }
 
 .text-2 {
   margin-left: 35rem;
+  max-width: 100%;
 }
 
 .dropdown {
@@ -62,4 +66,130 @@
 /* Optional: Style for dropdown arrow */
 .select-style::-ms-expand {
   display: none; /* Hide the default arrow in IE */
+}
+
+/* Tooltip styling */
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  pointer-events: none;
+  font-size: 14px;
+}
+
+/* Word description styling */
+.word-description {
+  font-size: 1rem;
+  padding-bottom: 2rem;
+}
+
+.word-description ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.word-description li {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 1200px) {
+  .text-2 {
+    margin-left: 30rem;
+  }
+  
+  #my_dataviz {
+    width: 45rem;
+  }
+  
+  .heatmap-filters {
+    width: 350px;
+    margin: 0 2rem;
+    margin-top: 7rem;
+    height: 700px !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .heatmap-filters {
+    width: 350px;
+    margin: 0 2rem;
+    margin-top: 7rem;
+    height: 700px !important;
+  }
+  
+  .text-2 {
+    margin-left: 25rem;
+  }
+  
+  #my_dataviz {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  /* Mobile layout - stack elements */
+  .heatmap-container {
+    flex-direction: column;
+    margin-top: 0; /* Remove extra space above */
+    align-items: flex-start; /* Align items to the start */
+    width: 100%;
+  }
+  
+  .heatmap-filters {
+    position: relative !important;
+    width: 100%;
+    height: 700px !important;
+    margin: 0 !important;
+    margin-bottom: -5rem !important;
+    top: 0 !important; /* Override any inline styles */
+    padding: 20px;
+    order: 1;
+    align-self: stretch; /* Make sure it stretches to full width */
+    transform: scale(0.8);
+    transform-origin: top left;
+  }
+  
+  .temp {
+    order: 2;
+  }
+  
+  .text-2 {
+    margin-left: 0 !important;
+    padding: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .heatmap-filters {
+    height: 600px !important;
+  }
+  
+  #my_dataviz {
+    margin-left: 0 !important;
+    width: 100%;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+
+  #my_dataviz > div {
+    flex-direction: column !important;
+  }
+
+  #my_dataviz > div > img {
+    width: 60% !important;
+    margin: 1rem 0 !important;
+    align-self: center !important;
+  }
+
+  .select-style {
+    min-width: 100%;
+  }
 }

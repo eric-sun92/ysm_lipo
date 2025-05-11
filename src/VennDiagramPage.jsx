@@ -11,6 +11,46 @@ const VennDiagramPage = () => {
   const [selectedArea, setSelectedArea] = useState(null);
   const [selectedTextArea, setSelectedTextArea] = useState("");
   const [selectedSetName, setSelectedSetName] = useState("");
+  const [isFixed, setIsFixed] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Pre-load the Lipofuscin consensus proteome list
+  useEffect(() => {
+    const loadLipofuscinData = async () => {
+      try {
+        const response = await fetch('/src/Lipofuscin Consensus Proteome List.xlsx');
+        const arrayBuffer = await response.arrayBuffer();
+        const data = new Uint8Array(arrayBuffer);
+        const workbook = XLSX.read(data, { type: "array" });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        
+        const range = XLSX.utils.decode_range(worksheet["!ref"]);
+        const columnData = [];
+        
+        for (let C = range.s.c; C <= range.e.c; C++) {
+          const column = [];
+          for (let R = range.s.r; R <= range.e.r; R++) {
+            const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
+            const cell = worksheet[cellAddress];
+            if (cell && cell.v !== undefined && cell.v !== null && cell.v.toString().trim() !== '') {
+              column.push(cell.v.toString().trim());
+            }
+          }
+          if (column.length > 0) {
+            columnData.push(...column);
+          }
+        }
+
+        const uniqueItems = [...new Set(columnData.filter(item => item !== ''))];
+        setInputSet2(uniqueItems);
+      } catch (error) {
+        console.error('Error loading Lipofuscin data:', error);
+      }
+    };
+
+    loadLipofuscinData();
+  }, []);
 
   const capRatioDifference = (size1, size2, maxRatio = 5) => {
     if (size1 === 0 || size2 === 0) return { cappedSize1: size1, cappedSize2: size2 }; // Avoid division by zero
@@ -54,10 +94,68 @@ const VennDiagramPage = () => {
     [inputSet1, inputSet2]
   );
 
+  const divRef = useRef(null);
+
   useEffect(() => {
-    const chart = venn.VennDiagram();
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth <= 768) {
+        setIsFixed(false);
+      }
+    };
+
+    const handleScroll = () => {
+      if (!isMobile && divRef.current) {
+        if (window.scrollY > 250) {
+          setIsFixed(true);
+        } else {
+          setIsFixed(false);
+        }
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isMobile]);
+
+  useEffect(() => {
+    const chart = venn.VennDiagram()
+      .width(isMobile ? window.innerWidth * 0.9 : 600)
+      .height(isMobile ? window.innerWidth * 0.9 : 600);
+    
     const div = d3.select("#venn");
     div.datum(baseSets).call(chart);
+
+    // Update text position and size
+    const textElements = div.selectAll("text");
+    textElements.style("font-size", isMobile ? "14px" : "16px");
+
+    // Update circle sizes
+    const circles = div.selectAll("path");
+    if (isMobile) {
+      circles.style("transform", "scale(0.85)");
+    }
+
+    // Add click handlers
+    div
+      .selectAll("g")
+      .on("mouseover", function (d, i) {
+        const selection = d3.select(this);
+        selection.select("path").style("fill-opacity", 0.2);
+      })
+      .on("mouseout", function (d, i) {
+        const selection = d3.select(this);
+        selection.select("path").style("fill-opacity", 0.0);
+      })
+      .on("click", (d, i) => {
+        setSelectedArea(i);
+        setSelectedSetName(i.sets.join(" ∩ "));
+      });
 
     d3.selectAll("#venn .venn-circle path")
     .filter((d) => d.sets && d.sets.length === 1 && d.sets[0] === "User Input")
@@ -163,7 +261,7 @@ const VennDiagramPage = () => {
     return () => {
       tooltip.remove();
     };
-  }, [baseSets, inputSet1, inputSet2, selectedArea]);
+  }, [baseSets, inputSet1, inputSet2, selectedArea, isMobile]);
 
   useEffect(() => {
     d3.selectAll("#venn .venn-circle path").style("fill-opacity", 0);
@@ -209,26 +307,6 @@ const VennDiagramPage = () => {
     setSelectedElements(elementDetails);
     setSelectedTextArea(elementDetails.join("\n"));
   }, [inputSet1, inputSet2, selectedArea]);
-
-  const [isFixed, setIsFixed] = useState(false);
-
-  const divRef = useRef(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 250) {
-        setIsFixed(true);
-      } else {
-        setIsFixed(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   const atlasLinks = {
     "25 - OLF/CTX":
@@ -301,13 +379,13 @@ const VennDiagramPage = () => {
     <>
       <div className="wrapper">
         <h1 style={{ fontFamily: "ITC", margin: "3rem" }}>Lipofuscin Proteome</h1>
-        <div className="container">
+        <div className="venn-container">
           <div
-            className="filters"
+            className="venn-filters"
             ref={divRef}
             style={{
-              position: isFixed ? "absolute" : "absolute",
-              top: isFixed ? "14rem" : "100px",
+              position: isMobile ? 'relative' : (isFixed ? 'fixed' : 'absolute'),
+              top: isMobile ? 'auto' : (isFixed ? '-4.2rem' : '100px'),
               backgroundColor: "#ddd",
               height: "52rem",
             }}
@@ -382,23 +460,21 @@ const VennDiagramPage = () => {
                   </li>
                 </ul>
               </div>
-              <div style={{ display: "flex" }}>
-                <div style={{marginLeft: "-5rem"}} id="venn"></div>
-                <div>
-                  {selectedElements.length > 0 && (
-                    <div className="selection-info">
-                      <h4>Selected Set: {selectedSetName}</h4>
-                      <textarea
-                        value={selectedTextArea}
-                        readOnly
-                        className="input-textarea"
-                      />
-                      <button onClick={downloadSelectedSet} style={{ marginTop: "10px" }}>
-                        Download Selected Set
-                      </button>
-                    </div>
-                  )}
-                </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <div style={{marginLeft: isMobile ? "0" : "-5rem"}} id="venn"></div>
+                {selectedElements.length > 0 && (
+                  <div className="selection-info">
+                    <h4>Selected Set: {selectedSetName}</h4>
+                    <textarea
+                      value={selectedTextArea}
+                      readOnly
+                      className="input-textarea"
+                    />
+                    <button onClick={downloadSelectedSet} style={{ marginTop: "10px" }}>
+                      Download Selected Set
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

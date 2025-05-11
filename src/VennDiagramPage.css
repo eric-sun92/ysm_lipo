@@ -2,12 +2,12 @@
     margin: 2rem;
 }
 
-.container {
+.venn-container {
   display: flex;
   justify-content: flex-start;
 }
 
-.filters {
+.venn-filters {
   position: fixed;
   width: 400px; /* Sets the width to half of the viewport height */
   height: 80vh; /* Sets the height to the full viewport height */
@@ -99,14 +99,7 @@ input[type="checkbox"]:checked + label {
     font-weight: bold;
 }
 
-#my_dataviz {
-  padding: 3rem;
-  border: 1px solid #e3e3e3;
-  margin-left: 30rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
+
 
 .gallery {
   display: flex;
@@ -213,4 +206,107 @@ button {
 
 button:hover {
   background-color: #00356b; /* Darker blue on hover */
+}
+
+.selection-info {
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.selection-info h4 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.selection-info textarea {
+  width: 100%;
+  min-height: 200px;
+}
+
+@media screen and (max-width: 1000px) {
+  /* Mobile layout - stack elements */
+  .venn-container {
+    flex-direction: column;
+    margin-top: 0;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .venn-filters {
+    position: relative !important;
+    width: 100%;
+    height: 800px !important;
+    margin: 0 !important;
+    margin-bottom: -5rem !important;
+    top: 0 !important;
+    padding: 20px;
+    order: 1;
+    align-self: stretch;
+    transform: scale(0.8);
+    transform-origin: top left;
+  }
+  
+  .temp {
+    order: 2;
+  }
+  
+  .text-2 {
+    margin-left: 0 !important;
+    padding: 0 1rem;
+  }
+
+  #my_dataviz {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 1rem;
+    overflow-x: auto;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #my_dataviz > div {
+    flex-direction: column !important;
+  }
+
+  #my_dataviz > div > img {
+    width: 100% !important;
+    margin: 1rem 0 !important;
+    align-self: center !important;
+  }
+
+  .temp {
+    width: 100%;
+  }
+
+  #venn {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    transform-origin: center;
+  }
+
+  #venn svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .venntooltip {
+    max-width: 80vw;
+    word-break: break-word;
+  }
+
+  .selection-info {
+    margin-top: 1rem;
+    padding: 0 1rem;
+  }
+
+  .selection-info textarea {
+    min-height: 150px;
+  }
 }
