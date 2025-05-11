@@ -18,7 +18,7 @@ const VennDiagramPage = () => {
   useEffect(() => {
     const loadLipofuscinData = async () => {
       try {
-        const response = await fetch('/src/Lipofuscin Consensus Proteome List.xlsx');
+        const response = await fetch('/Lipofuscin Consensus Proteome List.xlsx');
         const arrayBuffer = await response.arrayBuffer();
         const data = new Uint8Array(arrayBuffer);
         const workbook = XLSX.read(data, { type: "array" });
